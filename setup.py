@@ -2,11 +2,11 @@ from setuptools import find_packages, setup
 import os
 from glob import glob
 
-package_name = 'cie_controller'
+package_name = 'kfupm_f1tenth_ultra_instinct'
 
 setup(
     name=package_name,
-    version='0.0.0',
+    version='1.0.0',
     packages=find_packages(exclude=['test']),
     data_files=[
         ('share/ament_index/resource_index/packages',
@@ -16,9 +16,9 @@ setup(
     ],
     install_requires=['setuptools'],
     zip_safe=True,
-    maintainer='raian',
-    maintainer_email='raian@todo.todo',
-    description='CIE-KFUPM F1TENTH Autonomous Racing Controller',
+    maintainer='Team Ultra Instinct',
+    maintainer_email='raian@kfupm.edu.sa',
+    description='Team Ultra Instinct - CIE-KFUPM F1TENTH Autonomous Racing Controller',
     license='MIT',
     extras_require={
         'test': [
@@ -27,7 +27,7 @@ setup(
     },
     entry_points={
         'console_scripts': [
-            'controller = cie_controller.controller_node:main',
+            'controller = kfupm_f1tenth_ultra_instinct.controller_node:main',
         ],
     },
 )

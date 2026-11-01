@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
-  <name>cie_controller</name>
-  <version>0.0.0</version>
-  <description>TODO: Package description</description>
-  <maintainer email="raian@todo.todo">raian</maintainer>
+  <name>kfupm_f1tenth_ultra_instinct</name>
+  <version>1.0.0</version>
+  <description>Team Ultra Instinct - CIE-KFUPM F1TENTH Autonomous Racing Controller</description>
+  <maintainer email="raian@kfupm.edu.sa">Team Ultra Instinct</maintainer>
   <license>MIT</license>
 
   <depend>rclpy</depend>

@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """
-CIE-KFUPM F1TENTH Autonomous Racing Competition - Student Controller
-Package: cie_controller
+CIE-KFUPM F1TENTH Autonomous Racing Competition
+Team: Ultra Instinct
+Package: kfupm_f1tenth_ultra_instinct
 Node: controller_node
 Executable: controller
 Stage: 1 (Clean-lap qualification on Levine track)
@@ -25,7 +26,7 @@ try:
     from .centerline_data import LEVINE_CENTERLINE
 except (ImportError, ValueError):
     try:
-        from cie_controller.centerline_data import LEVINE_CENTERLINE
+        from kfupm_f1tenth_ultra_instinct.centerline_data import LEVINE_CENTERLINE
     except Exception:
         LEVINE_CENTERLINE = []
 
@@ -53,7 +54,7 @@ class F1TenthController(Node):
         # Load waypoints
         self.waypoints = self._load_waypoints()
         self.num_waypoints = len(self.waypoints)
-        self.get_logger().info(f"Loaded {self.num_waypoints} waypoints for Levine track.")
+        self.get_logger().info(f"[Ultra Instinct] Loaded {self.num_waypoints} waypoints for Levine track.")
 
         # Subscriptions
         self.scan_sub = self.create_subscription(
@@ -83,7 +84,7 @@ class F1TenthController(Node):
         self.min_forward_dist = float('inf')
         self.last_log_time = 0.0
 
-        self.get_logger().info("CIE Controller initialized and ready.")
+        self.get_logger().info("[Ultra Instinct] Controller initialized and ready to race.")
 
     def _load_waypoints(self):
         """Loads waypoints with multi-level fallbacks."""
@@ -99,7 +100,7 @@ class F1TenthController(Node):
         # 2. Check package share directory
         if get_package_share_directory is not None:
             try:
-                pkg_share = get_package_share_directory('cie_controller')
+                pkg_share = get_package_share_directory('kfupm_f1tenth_ultra_instinct')
                 csv_path = os.path.join(pkg_share, 'racelines', 'levine_centerline.csv')
                 if os.path.isfile(csv_path):
                     pts = self._read_csv(csv_path)
@@ -227,7 +228,7 @@ class F1TenthController(Node):
 
         # 3. Pure pursuit steering calculation
         # Curvature: kappa = 2 * y_local / (L^2)
-        # Steering angle: delta = arctan(kappa * wheelbase) * gain
+        # Steering angle: delta = arctan(curvature * wheelbase) * gain
         curvature = 2.0 * target_local_y / (target_dist * target_dist)
         steering_angle = math.atan(curvature * self.wheelbase) * self.steering_gain
 
@@ -242,7 +243,7 @@ class F1TenthController(Node):
         # LiDAR obstacle/proximity dampener
         if self.emergency_stop:
             speed = 0.0
-            self.get_logger().warn(f"Emergency brake active! Forward dist: {self.min_forward_dist:.2f}m")
+            self.get_logger().warn(f"[Ultra Instinct] Emergency brake active! Forward dist: {self.min_forward_dist:.2f}m")
         elif self.min_forward_dist < 0.75:
             speed = min(speed, 1.0)
 
@@ -260,7 +261,7 @@ class F1TenthController(Node):
         if now_sec - self.last_log_time > 2.0:
             self.last_log_time = now_sec
             self.get_logger().info(
-                f"Pos: ({x_car:.2f}, {y_car:.2f}) | WP: {self.current_idx}/{self.num_waypoints} | "
+                f"[Ultra Instinct] Pos: ({x_car:.2f}, {y_car:.2f}) | WP: {self.current_idx}/{self.num_waypoints} | "
                 f"Steer: {math.degrees(steering_angle):.1f}° | Speed: {speed:.2f} m/s | Fwd: {self.min_forward_dist:.2f}m"
             )
 
@@ -273,7 +274,6 @@ def main(args=None):
     except KeyboardInterrupt:
         pass
     finally:
-        # Publish zero drive command on shutdown
         try:
             stop_msg = AckermannDriveStamped()
             stop_msg.header.stamp = controller.get_clock().now().to_msg()

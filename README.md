@@ -1,13 +1,14 @@
-# CIE-KFUPM F1TENTH Controller Submission
+# KFUPM F1TENTH - Team Ultra Instinct
 
-## Team Controller Information
-- **Package Name:** `cie_controller`
+## Controller Submission Information
+- **Team Name:** Ultra Instinct
+- **Package Name:** `kfupm_f1tenth_ultra_instinct`
 - **Node Name:** `controller`
-- **Execution Command:** `ros2 run cie_controller controller`
+- **Execution Command:** `ros2 run kfupm_f1tenth_ultra_instinct controller`
 - **Target Stage:** Stage 1 (Clean-lap qualification on Levine track)
 
 ## Overview & Algorithm
-This package implements a robust, high-performance controller designed for Stage 1 clean-lap qualification on the Levine course.
+This package implements a robust, high-performance autonomous racing controller engineered for Stage 1 clean-lap qualification on the Levine course.
 - **Trajectory Tracking:** Pure Pursuit path tracker operating on the Levine centerline waypoints with adaptive lookahead calculation.
 - **Dynamic Speed Profiling:** Automatically modulates velocity between straight sections (up to 2.2 m/s) and cornering sections (down to 1.3 m/s) to guarantee zero wheel slip and stable adherence to the raceline.
 - **LiDAR Safety Layer:** Continuously samples `/scan` across the forward sector. In the event of an obstacle or impending collision (< 0.35m), emergency braking is immediately engaged.
@@ -48,7 +49,7 @@ source ~/Documents/scratch/CIE-KFUPM-F1tenth-Autonomous-Racing-Competition/start
 source ~/Documents/scratch/CIE-KFUPM-F1tenth-Autonomous-Racing-Competition/starter_ws/install/setup.bash
 source ~/controller_ws/install/setup.bash
 
-ros2 run cie_controller controller
+ros2 run kfupm_f1tenth_ultra_instinct controller
 ```
 
 ## Configurable Parameters
